@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <div class="col-md-8" ng-show="!logged_in">
+    <div class="panel panel-danger">
+      <div class="panel-heading text-center">
+        <h2>Welcome to UMW Reviews!</h2>
+      </div>
+      <div class="panel-body text-center">
+        <h4>You can review movies or get movie recommendations.</h4>
+      </div>
+    </div>
+    
+    <img src="{{ url_for('static', filename='images/img2.jpg') }}" class="img-responsive center-block"  alt="Image 2" />
+    
+  </div>
+  <div class="col-md-4" ng-show="!logged_in">
+    <div class="panel panel-default">
+      <div class="panel-heading text-center">
+        <h4>For your Information</h4>
+        <h6>Information about UMW Reviews</h6>
+      </div>
+      <div class="panel-body text-center">
+        <h5>UMW Reviews was a website developed by Bryan Nosar, Kyle Tracy, and Sheldon McClung for CPSC 350</h5>
+        <p>We chose to create this website because Bryan and Sheldon had experience with Data Mining and Kyle had general web development experience.</p>
+        <hr>
+        <h5>Features</h5>
+        <p>Currently the website is still in production. We have made a lot of progress on the website since Bryan had to parse the MovieLens dataset and Sheldon had to retrofit Python Code
+        Users are able to register and log in to the website. Anyone is able to search our database for movies, but only registered users can rate and review movies. Registered users are also
+        allowed to get a list of 15 movies to be recommended based off of their ratings of movies.
+        </p>
+        <hr>
+        <h5>Future of this Site</h5>
+        
+        <p>We currently are in the process of adding admin privileges so Admins can delete hateful reviews with no sustenance. Admins will be able to ban or delete users and add new movies.</p>
+        <p>We have error messages are already made on the backend, we just need to use Javascript to display the errors.</p>
+        <p>We are going to clean the site up a bit more to make it more mobile friendly</p>
+        <p><strong>This information on the sidebar will probably be made into Modals to have cleaner code.</strong></p>
+        
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-8" ng-show="logged_in">
+    <div class="panel panel-primary">
+      <div class="panel-heading text-center">
+        <h2>Welcome to UMW Reviews, <b>{{ session['username'] }}</b>!</h2>
+      </div>
+      <div class="panel-body text-center">
+        <h4>You can review movies or get movie recommendations.</h4>
+      </div>
+    </div>
+    <img src="{{ url_for('static', filename='images/img1.jpg') }}" class="img-responsive center-block"  alt="Image 1" />
+  </div>
+  <div class="col-md-4" ng-show="logged_in">
+    <div class="panel panel-default" >
+      <div class="panel-heading text-center">
+        <h4>Top 12 Movies by Rating</h4>
+        <h6>Because we go 2 steps further!</h6>
+        <h6></h6>
+      </div>
+      <div class="panel-body text-center">
+        <div class="row">
+          <div class="col-xs-1">
+            <p>1</p>
+            <p>2</p>
+            <p>3</p>
+            <p>4</p>
+            <p>5</p>
+            <p>6</p>
+            <p>7</p>
+            <p>8</p>
+            <p>9</p>
+            <p>10</p>
+            <p>11</p>
+            <p>12</p>
+          </div>
+          <div class="col-xs-10">
+            <div ng-repeat="result in top12query">
+              <div class="ng-scope" style="vertical-align:middle;">
+                <p><span ng-bind="result[0]"></span></p>
+              </div>
+            </div>
+          </div>  
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
