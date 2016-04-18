@@ -518,7 +518,7 @@ def register(data):
     username = data['username']
     password = data['password']
     password2 = data['confirmPassword']
-    
+    print(username)
     hasBadWord = False
     badWords = []
     for word in arrBad:
@@ -564,8 +564,6 @@ def register(data):
             emit('register', {'success' : True, 'message' : 'Successfully registered. Login to continue.'})
         else:
             emit('register', {'success' : False, 'message' : error})
-            
-        emit('error', {'exists' : len(error) != 0, 'message' : error, 'type' : 'register'})
         
     else:
         
@@ -700,13 +698,20 @@ def rateMovie(data):
     review = data['moviereview']
     year = data['movieyear']
     hasError = False
+    
+    print(rating, review)
+    
     error = ''
-
-    try:
-        rating = float(rating)
-    except TypeError:
-        error += 'Ratings have to be float values with .5 intervals! '
+    if rating == '':
+        error += 'Ratings can not be characters or words  '
         hasError = True
+    else:
+        try:
+            rating = float(rating)
+        except TypeError as e:
+            print(e)
+            error += 'Ratings have to be float values with .5 intervals! '
+            hasError = True
     
     if rating > 5.0 or rating < 0:
         error += 'Ratings have to be between 1 and 5! '
@@ -721,8 +726,11 @@ def rateMovie(data):
         if word in review.lower():
             hasBadWord = True
             badWords.append(word)
-
+    
+    print("OGdjzhgkls")
+    
     if not hasBadWord and not hasError:
+        print("here")
         try:
             cur.execute(getMovieIDQuery, (movie_title, year))
             movieID = cur.fetchone()
@@ -786,6 +794,7 @@ def rateMovie(data):
             emit('onRateMovie', {'success' : False, 'message' : 'Rating and/or Review was not published.'})
             
     else:
+        print("error?")
         errMsg = ''
         if hasBadWord:
             concatStr = ', '.join(badWords)

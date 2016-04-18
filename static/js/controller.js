@@ -47,6 +47,7 @@ movieApp.controller('SearchController', function($scope, $sce){
         var moviereview = $("#moviereview").val();
         var movieyear = $("#movieyear").val();
         
+        console.log(movierating);
         $('#rateModal').modal('toggle');
         socket.emit('rateMovie', {'moviename' : moviename, 'movierating' : movierating, 'moviereview' : moviereview, 'movieyear' : movieyear});
     };
