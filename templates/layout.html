@@ -132,7 +132,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="panel-footer">
+               
+                <div class="panel-footer" ng-show="logged_in">
                   <div class="row">
                     <div class="col-md-6">
                       <button id="closeSearch" class="btn btn-primary btn-block" ng-click="rate(result)">Rate and Review</button>
@@ -142,8 +143,10 @@
                     </div>
                   </div>
                 </div>
+                
               </div>
             </div>
+            
             <div class="panel panel-default" id="continueSearch" style="display:none">
               <div class="panel-body">
                 <div class="row">

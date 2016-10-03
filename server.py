@@ -294,6 +294,7 @@ arrBad = [
 'rimming',
 'rosy palm',
 'rosy palm and her 5 sisters',
+'rug muncher',
 'rusty fishhook',
 'rusty trombone',
 's&m',
@@ -399,8 +400,7 @@ doesUserAlreadyExist = "SELECT * FROM users WHERE username = %s LIMIT 1"
 registerNewUser = "INSERT INTO users VALUES (default, %s, %s, %s, crypt(%s, gen_salt('md5')))"
 loginQuery = "SELECT users.id, users.username, users.is_admin, count(movie_ratings.*) AS ratings FROM users LEFT JOIN movie_ratings ON users.id =" + \
     " movie_ratings.user_id WHERE users.username = %s AND users.password = crypt(%s, password) GROUP BY users.id"
-top20Query = "SELECT movie_titles.movie_title as title, AVG(movie_ratings.rating) AS average FROM movie_titles INNER JOIN movie_ratings ON movie_titles.id =" + \
-    " movie_ratings.movie_id GROUP BY movie_titles.movie_title, movie_ratings.rating ORDER BY movie_ratings.rating DESC LIMIT 20"
+top20Query = "SELECT movie_titles.movie_title as title, AVG(movie_ratings.rating) AS average FROM movie_titles INNER JOIN movie_ratings ON movie_titles.id = movie_ratings.movie_id GROUP BY movie_titles.movie_title ORDER BY average DESC LIMIT 20"
 getMovieIDQuery = "SELECT movie_titles.id FROM movie_titles JOIN movie_years ON movie_titles.id = movie_years.movie_id WHERE movie_title = %s AND year = %s"
 insertRateQuery = "INSERT INTO movie_ratings VALUES(default, %s, %s, %s)"
 insertReviewQuery = "INSERT INTO movie_reviews VALUES(default, %s, %s, %s)"
@@ -727,7 +727,6 @@ def rateMovie(data):
             hasBadWord = True
             badWords.append(word)
     
-    print("OGdjzhgkls")
     
     if not hasBadWord and not hasError:
         print("here")
