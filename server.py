@@ -832,6 +832,7 @@ def searchReviews(data):
     except Exception as e:
         print (e)
         
+        
     resultSize = len(results)
     searchResults = []
 
